@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hutterite Marketplace — Case Study — Pasindu Madhushanka</title>
+<meta name="description" content="UI/UX design for a Canadian multi-vendor marketplace connecting buyers with Hutterite colonies — storefront, vendor dashboard and design system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.case-hero-grid{ display:grid; grid-template-columns:1.02fr .98fr; gap:56px; align-items:center; }
+.case-hero-copy h1{ max-width:none; font-size:clamp(2rem,3.5vw,3.1rem); }
+.case-hero-visual{ position:relative; }
+.hut-canvas{ min-height:0; padding:30px; }
+.browser-mock{
+  width:100%; background:#fff; border-radius:12px; overflow:hidden;
+  border:1px solid var(--line); box-shadow:var(--shadow-lg);
+}
+.browser-bar{
+  display:flex; align-items:center; gap:6px; padding:9px 12px;
+  background:var(--paper-2); border-bottom:1px solid var(--line);
+}
+.b-dot{ width:8px; height:8px; border-radius:50%; background:var(--paper-3); flex-shrink:0; }
+.b-url{
+  margin-left:10px; flex:1; max-width:62%; text-align:center;
+  font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.04em;
+  color:var(--ink-3); background:#fff; border-radius:var(--r-pill); padding:3px 12px;
+}
+.browser-shot{ display:block; width:100%; height:auto; }
+.hero-credit{
+  margin-top:16px; font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem; letter-spacing:.02em; color:var(--ink-2);
+}
+@media(max-width:980px){
+  .case-hero-grid{ grid-template-columns:1fr; gap:40px; }
+  .hut-canvas{ padding:20px; }
+}
+@media(max-width:640px){ .hut-canvas{ padding:14px; } }
+.cs-outcome-list{ margin-top:24px; display:flex; flex-direction:column; gap:10px; }
+.cs-outcome-item{
+  display:flex; align-items:flex-start; gap:14px; padding:14px 18px;
+  border:1px solid var(--line); border-radius:var(--r-md); font-size:.96rem; color:var(--ink-2);
+}
+.cs-outcome-item::before{ content:'→'; font-family:'IBM Plex Mono',monospace; font-size:.8rem; color:var(--cobalt); flex-shrink:0; margin-top:1px; }
+.cs-future-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:24px; }
+.cs-future-item{ padding:16px 20px; border:1px solid var(--line); border-radius:var(--r-md); font-size:.92rem; color:var(--ink-2); display:flex; align-items:flex-start; gap:10px; }
+.cs-future-item .fi-num{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; color:var(--ink-3); flex-shrink:0; }
+.cs-two-col{ display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:28px; }
+.cs-two-col .pain-grid{ margin-top:0; }
+.cs-label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3); margin-bottom:12px; }
+.cs-challenge-group{ }
+.cs-quote-block{
+  border-left:3px solid var(--cobalt); padding:20px 24px;
+  background:var(--cobalt-soft); border-radius:0 var(--r-md) var(--r-md) 0;
+  margin-top:32px;
+}
+.cs-quote-block p{ font-family:'Bricolage Grotesque',sans-serif; font-weight:600; font-size:1.08rem; color:var(--ink); max-width:none; margin-top:0; line-height:1.5; }
+.cs-scope-pills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.cs-scope-pill{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; padding:7px 14px; border:1px solid var(--line); border-radius:var(--r-pill); color:var(--ink-2); letter-spacing:.04em; }
+@media(max-width:768px){
+  .cs-two-col{ grid-template-columns:1fr; }
+  .cs-future-grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page-veil" aria-hidden="true"></div>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html">Pasindu&nbsp;Madhushanka</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn btn-outline btn-sm" href="index.html#contact" data-cursor="Talk">Let's talk</a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mono-tag">Menu — 01 / 04</span>
+  <a href="index.html#work">Work</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#process">Process</a>
+  <a href="index.html#contact">Contact</a>
+  <a class="btn btn-primary mobile-cta" href="index.html#contact">Start a project</a>
+</div>
+
+<main id="main">
+
+  <section class="case-hero">
+    <div class="container">
+
+      <div class="case-hero-grid">
+        <div class="case-hero-copy">
+      <nav class="breadcrumb" aria-label="Breadcrumb" data-reveal>
+        <a href="index.html">Home</a><span>/</span>
+        <a href="index.html#work">Work</a><span>/</span>
+        <span class="current">Hutterite Marketplace</span>
+      </nav>
+
+      <div class="case-tags" data-reveal data-delay="80">
+        <span class="tag-pill">Multi-vendor Marketplace</span>
+        <span class="tag-pill">E-Commerce</span>
+        <span class="tag-pill">Web Platform</span>
+        <span class="tag-pill">Canada</span>
+      </div>
+
+      <h1 data-reveal data-delay="140">Hutterite Marketplace — a community-driven marketplace connecting colonies with buyers</h1>
+      <p class="sub" data-reveal data-delay="200">UI/UX design for a Canadian multi-vendor marketplace and its vendor dashboard — covering research, information architecture, design system and high-fidelity UI across both buyer and seller experiences.</p>
+          <div class="hero-results" data-reveal data-delay="220">
+          <div class="hr-item"><strong data-count="103" data-suffix="">0</strong><span>Verified sellers</span></div>
+          <div class="hr-item"><strong data-count="317" data-suffix="+">0</strong><span>Products listed</span></div>
+          <div class="hr-item"><strong data-count="144" data-suffix="">0</strong><span>Services listed</span></div>
+        </div>
+        </div>
+
+        <div class="case-hero-visual" data-reveal data-delay="160">
+          <div class="hero-canvas hut-canvas">
+            <div class="browser-mock">
+              <div class="browser-bar">
+                <span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span>
+                <span class="b-url">Hutterite Marketplace</span>
+              </div>
+              <img src="Hutterite_Marketplace.jpg" alt="Hutterite Marketplace home page design" class="browser-shot">
+            </div>
+            <span class="spec-chip chip-1">317+ products</span>
+            <span class="spec-chip chip-4">144 services</span>
+          </div>
+          <p class="hero-credit">Company Credit — Digital Chipmunks</p>
+        </div>
+      </div>
+
+      <div class="meta-grid" data-reveal data-delay="240">
+        <div class="meta-item"><div class="label">Project Type</div><div class="value">Multi-vendor E-Commerce Marketplace</div></div>
+        <div class="meta-item"><div class="label">Role</div><div class="value">UI/UX Designer</div></div>
+        <div class="meta-item"><div class="label">Platform</div><div class="value">WordPress · WooCommerce · Elementor</div></div>
+        <div class="meta-item"><div class="label">Tools</div><div class="value">Figma, FigJam, Notion</div></div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container case-body">
+
+      <nav class="case-nav" aria-label="Section navigation">
+        <span class="mono-tag">On this page</span>
+        <a href="#overview">Overview</a>
+        <a href="#problem">Problem</a>
+        <a href="#process-cs">Process</a>
+        <a href="#solution">Solution</a>
+        <a href="#result">Result</a>
+      </nav>
+
+      <div class="case-content">
+
+        <!-- OVERVIEW -->
+        <section id="overview" data-reveal>
+          <p class="mono-tag">Overview</p>
+          <h2>Two products, one design system — buyer storefront and vendor dashboard</h2>
+          <p>Hutterite Marketplace is a Canadian multi-vendor marketplace that connects buyers directly with Hutterite colonies and local businesses. It covers farm-fresh produce, meat and eggs, handcrafted goods, farm and industrial equipment, building materials, and skilled trade services such as welding, roofing and custom builds.</p>
+          <p>I designed the UI/UX for two connected products: the buyer-facing e-commerce storefront, where customers browse, compare, order and request quotes — and the vendor dashboard, where colonies and businesses manage products, orders and enquiries with full CRUD.</p>
+
+          <h3 style="margin-top:40px; font-size:1.18rem;">Scope of work</h3>
+          <div class="cs-scope-pills">
+            <span class="cs-scope-pill">User Research</span>
+            <span class="cs-scope-pill">Information Architecture</span>
+            <span class="cs-scope-pill">Wireframing</span>
+            <span class="cs-scope-pill">UI Design</span>
+            <span class="cs-scope-pill">Design System</span>
+            <span class="cs-scope-pill">Prototyping</span>
+            <span class="cs-scope-pill">Responsive Web</span>
+            <span class="cs-scope-pill">Vendor Dashboard (CRUD)</span>
+          </div>
+        </section>
+
+        <!-- PROBLEM -->
+        <section id="problem" data-reveal>
+          <p class="mono-tag">Problem</p>
+          <h2>Real friction on both sides of the marketplace</h2>
+          <p>Hutterite colonies produce high-quality goods and skilled services, but selling them beyond local pickup and word of mouth is hard. The marketplace had to solve distinct problems on both sides.</p>
+
+          <div style="margin-top:32px;">
+            <span class="cs-label">Buyer challenges</span>
+            <div class="pain-grid" style="grid-template-columns:repeat(2,1fr);">
+              <div class="pain-card"><span class="num">01</span><p>A huge, mixed catalogue — about 317 products across 14 departments, from pumpkins to marine dock equipment, plus services and wholesale. Without strong structure, shoppers feel lost.</p></div>
+              <div class="pain-card"><span class="num">02</span><p>Trust — buyers needed to know who they were buying from and that the seller was a real, verified colony or business.</p></div>
+              <div class="pain-card"><span class="num">03</span><p>Location-dependent perishables — fresh food is only delivered in select cities (Edmonton, Calgary, Red Deer and others), so showing items a buyer can't receive causes frustration.</p></div>
+              <div class="pain-card"><span class="num">04</span><p>Not everything is "add to cart" — services and custom work need quotes, and some buyers need items nobody lists yet.</p></div>
+            </div>
+          </div>
+
+          <div style="margin-top:32px;">
+            <span class="cs-label">Vendor challenges</span>
+            <div class="pain-grid">
+              <div class="pain-card"><span class="num">05</span><p>Low digital confidence — many colony users aren't professional e-commerce operators, so a complex admin panel would mean abandoned listings and missed orders.</p></div>
+              <div class="pain-card"><span class="num">06</span><p>Multiple departments per colony — a single colony may run carpentry, market garden, poultry and metalwork shops, each needing its own enquiries and stock.</p></div>
+              <div class="pain-card"><span class="num">07</span><p>Operational load — vendors need to create listings, track orders, update stock and handle quotes without training.</p></div>
+            </div>
+          </div>
+
+          <div class="cs-quote-block">
+            <p>How might we make a complex multi-vendor marketplace feel simple, trustworthy and local for buyers — while giving vendors a dashboard they can use confidently from day one?</p>
+          </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section id="process-cs" data-reveal>
+          <p class="mono-tag">Process</p>
+          <h2>Six phases from discovery to high-fidelity</h2>
+
+          <div class="timeline">
+            <div class="step" data-reveal>
+              <span class="step-num">01 — Research &amp; Discovery</span>
+              <h4>Audit both user groups</h4>
+              <p>Audited the business model and both user groups — buyers (households, farms, contractors, wholesale) and sellers (colonies, local businesses). Benchmarked marketplaces and B2B grocery platforms for navigation, filtering and vendor tooling. Mapped the full product range, delivery rules and order flows to find where the experience could break.</p>
+            </div>
+            <div class="step" data-reveal>
+              <span class="step-num">02 — Personas &amp; User Flows</span>
+              <h4>Map every buying intent</h4>
+              <p>Created personas for the city household buyer, the farmer sourcing equipment, the wholesale buyer and the colony manager. Mapped key flows: browse → set location → add to cart → checkout; post a request → receive offers → accept; vendor adds a product → receives an order → fulfils it.</p>
+            </div>
+            <div class="step" data-reveal>
+              <span class="step-num">03 — Information Architecture</span>
+              <h4>Three clear entry points</h4>
+              <p>Organised the catalogue into shop by department, shop by colony or business, and services. Designed a mega-menu with category counts and thumbnails. Created a delivery-location selector so availability is set once and applied everywhere across the experience.</p>
+            </div>
+            <div class="step" data-reveal>
+              <span class="step-num">04 — Wireframes → UI Design</span>
+              <h4>Low-fi to high-fidelity</h4>
+              <p>Started with low-fidelity wireframes of the home page, product listing, product detail, cart and dashboard screens. Built a design system with colours, typography, product cards, status badges and form patterns so the storefront and dashboard feel like one product across all responsive breakpoints.</p>
+            </div>
+            <div class="step" data-reveal>
+              <span class="step-num">05 — Dashboard Design (CRUD)</span>
+              <h4>Designed for non-technical vendors</h4>
+              <p>Create: a simple product form with variants, price ranges, images, stock and category. Read: an order list with status filters and search. Update: quick edits without leaving the list. Delete/archive: confirmation dialogs and safe alternatives to permanent deletion. Used plain language, clear empty states and inline validation throughout.</p>
+            </div>
+            <div class="step" data-reveal>
+              <span class="step-num">06 — Prototype &amp; Iterate</span>
+              <h4>Test and refine key flows</h4>
+              <p>Built clickable prototypes of the key buyer and vendor flows in Figma, tested them, and refined the designs based on the feedback received.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SOLUTION -->
+        <section id="solution" data-reveal>
+          <p class="mono-tag">Solution</p>
+          <h2>Two experiences, built as one product</h2>
+
+          <div class="feature-row">
+            <div class="feature-copy">
+              <span class="num">01</span>
+              <h3>Location-first shopping</h3>
+              <p>A "Choose location" control sets delivery once and shows fresh-delivery cities, so buyers only ever see what they can actually receive. Perishable frustration — gone from the first interaction.</p>
+            </div>
+            <div class="feature-visual">
+              <div class="mock-app">
+                <div class="mock-bar" style="background:var(--amber); width:55%;"></div>
+                <div class="mock-line w-80"></div>
+                <div class="mock-line w-60"></div>
+                <div class="mock-btn" style="background:var(--amber); width:48%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-row is-rev">
+            <div class="feature-copy">
+              <span class="num">02</span>
+              <h3>Department-led navigation</h3>
+              <p>Image-based department tiles with item counts and a searchable filter make a 300+ item catalogue easy to scan. The mega-menu shows category shape before a user clicks — reducing pogo-sticking between the home page and product lists.</p>
+            </div>
+            <div class="feature-visual">
+              <div class="mock-app">
+                <div class="mock-row"><div class="mock-chart">
+                  <i style="height:40%; background:var(--amber-soft);"></i>
+                  <i style="height:75%; background:var(--amber);"></i>
+                  <i style="height:55%; background:var(--amber-soft);"></i>
+                  <i style="height:65%; background:var(--amber);"></i>
+                </div></div>
+                <div class="mock-line w-60" style="margin-top:18px;"></div>
+                <div class="mock-line w-40"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-copy">
+              <span class="num">03</span>
+              <h3>Trust built into every card</h3>
+              <p>Every product card shows the colony name. The home page carries the statement "Every seller is a real colony or local business, verified by us." Dedicated colony pages and a map directory make the people behind each product visible — converting first-time visitors into confident buyers.</p>
+            </div>
+            <div class="feature-visual">
+              <div class="mock-app">
+                <div class="mock-bar" style="background:var(--cobalt); width:34%;"></div>
+                <div class="mock-line w-80"></div>
+                <div class="mock-line w-60"></div>
+                <div class="mock-btn"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-row is-rev">
+            <div class="feature-copy">
+              <span class="num">04</span>
+              <h3>Beyond add-to-cart</h3>
+              <p>Quote buttons for trades and services, a Post a Request feature where colonies send offers, live auctions, and a wholesale/B2B entry point serve every buying intent — not just the straightforward purchase.</p>
+            </div>
+            <div class="feature-visual">
+              <div class="mock-app">
+                <div class="mock-line w-80"></div>
+                <div class="mock-line w-60"></div>
+                <div class="mock-btn" style="background:var(--amber); width:58%;"></div>
+                <div class="mock-btn" style="background:transparent; border:1.5px solid var(--line); margin-top:10px; width:58%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-copy">
+              <span class="num">05</span>
+              <h3>Vendor dashboard designed for day one</h3>
+              <p>A focused dashboard where colonies create, view, edit and delete products and manage orders from one place. Department-aware structure routes enquiries to the right shop. Simple, forgiving forms and clear status labels are designed for non-technical users.</p>
+            </div>
+            <div class="feature-visual">
+              <div class="mock-app">
+                <div class="mock-bar" style="width:45%;"></div>
+                <div class="mock-line w-80"></div>
+                <div class="mock-line w-60"></div>
+                <div class="mock-line w-40"></div>
+                <div class="mock-btn" style="margin-top:14px; width:60%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top:56px; font-size:1.18rem;">Design approach</h3>
+          <p>A warm, community-driven look with strong photography and a clean, scannable layout — so a large catalogue feels approachable rather than overwhelming. One design system covering the storefront, vendor dashboard and service flows ensures both experiences feel like one product, not two bolted together.</p>
+
+          <div class="cs-outcome-list">
+            <div class="cs-outcome-item">A warm, community-driven look with strong photography and a clean, scannable layout.</div>
+            <div class="cs-outcome-item">Clear product cards — price or price range, sale %, stock state and one-tap "Add to cart" or "Choose options" — reduce hesitation at the point of decision.</div>
+            <div class="cs-outcome-item">Reassurance at key moments: secure checkout, direct-from-colony messaging and pickup/delivery notes sit exactly where buyers need them.</div>
+          </div>
+        </section>
+
+        <!-- RESULT -->
+        <section id="result" data-reveal>
+          <p class="mono-tag">Result</p>
+          <h2>A live marketplace used by colonies across Canada</h2>
+
+          <div class="result-stats">
+            <div class="result-stat"><strong data-count="103" data-suffix="">0</strong><span>Verified sellers — 87 Hutterite colonies and 16 local businesses on the platform</span></div>
+            <div class="result-stat"><strong data-count="317" data-suffix="+">0</strong><span>Products listed across 14 departments, from fresh produce to industrial equipment</span></div>
+            <div class="result-stat"><strong data-count="144" data-suffix="">0</strong><span>Services listed — skilled trades including welding, roofing and custom builds</span></div>
+          </div>
+
+          <h3 style="margin-top:48px; font-size:1.18rem;">What the design delivered</h3>
+          <div class="cs-outcome-list">
+            <div class="cs-outcome-item">A live, working marketplace covering two full user experiences — buyer storefront and vendor dashboard — built as one cohesive product.</div>
+            <div class="cs-outcome-item">One design system covering the storefront, vendor dashboard and service flows, so every screen speaks the same visual language.</div>
+            <div class="cs-outcome-item">A scalable information architecture that makes 317+ products across 14 departments easy to browse, filter and find.</div>
+            <div class="cs-outcome-item">A location-first delivery system that eliminates the frustration of showing buyers products they can't receive.</div>
+            <div class="cs-outcome-item">A vendor CRUD dashboard designed so non-technical colony users can create, edit and manage listings and orders with confidence.</div>
+          </div>
+
+          <h3 style="margin-top:48px; font-size:1.18rem;">Key learnings</h3>
+          <div class="cs-outcome-list">
+            <div class="cs-outcome-item">With a large catalogue, strong information architecture matters more than visual polish.</div>
+            <div class="cs-outcome-item">Designing for less technical vendors means fewer fields, plain language and forgiving flows.</div>
+            <div class="cs-outcome-item">Trust signals such as real seller identity and clear delivery rules are what turn first-time visitors into buyers.</div>
+          </div>
+        </section>
+
+        <a class="next-project" href="index.html#work" data-reveal>
+          <div>
+            <span class="mono-tag label">Back to selected work</span>
+            <span class="title">Explore more projects</span>
+          </div>
+          <span class="arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="cta-banner" data-reveal>
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="inner">
+          <p class="eyebrow" style="color:var(--on-dark-dim);"><span class="dot"></span>Got a product that needs clarity?</p>
+          <h2>Let's make the next version the right one.</h2>
+          <p>I take on a small number of projects at a time, so every one gets full attention. Tell me what you're building.</p>
+          <div class="cta-actions">
+            <a class="btn btn-on-dark magnetic" href="mailto:pasindu.uiux@gmail.com" data-cursor="Email">
+              Start a conversation
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="cta-email" href="mailto:pasindu.uiux@gmail.com">pasindu.uiux@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="index.html"><span class="dot"></span>Pasindu&nbsp;Madhushanka</a>
+        <p>Product &amp; UX design, built with intention.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <a href="index.html#work">Work</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>Colombo, Sri Lanka</p>
+          <a href="mailto:pasindu.uiux@gmail.com">pasindu.uiux@gmail.com</a>
+        </div>
+        <div class="footer-col">
+          <h4>Follow</h4>
+          <div class="social-row">
+            <a href="https://dribbble.com/PasinduDM" aria-label="Dribbble" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M4 9.5c2.8 1 8 1.4 16 .5M3.5 15c5-1.4 11.5-1.6 17 1M9 3.5c2.6 4 4.2 9.5 4.5 17"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/pasindu-uiux/" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7.5v.01M12 17v-4.5a2 2 0 0 1 4 0V17m0 0v-4.5"/></svg>
+            </a>
+            <a href="https://www.instagram.com/pasindu_uiux/" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pasindu Madhushanka. All rights reserved.</span>
+      <span>Designed &amp; coded by hand — no template.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating services dock -->
+<nav class="float-nav" aria-label="Services">
+    <a class="float-cta" href="digital-marketing.html">Digital Marketing<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <a class="float-cta" href="branding.html">Branding<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
