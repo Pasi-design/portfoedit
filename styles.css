@@ -1537,3 +1537,29 @@ html.has-cursor .cursor-ring, html.has-cursor .cursor-dot{ opacity:1; }
   .st-title{ max-width:none; }
 }
 @media (max-width:420px){ .st-orbit{ --os:.7; } }
+
+
+/* Grouped capability cards: refreshed Main Skills showcase */
+.skills-bento--groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:48px;align-items:stretch}
+.skill-group{position:relative;display:flex;flex-direction:column;min-width:0;min-height:340px;padding:26px 25px 25px;overflow:hidden;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);transition:transform var(--d) var(--ease),border-color var(--d) var(--ease),box-shadow var(--d) var(--ease)}
+.skill-group:before{content:'';position:absolute;inset:0 0 auto;height:3px;background:var(--group-accent,var(--cobalt));opacity:.9}
+.skill-group:after{content:'';position:absolute;width:190px;height:190px;right:-105px;top:-112px;border-radius:50%;background:var(--group-glow,rgba(42,51,224,.09));pointer-events:none}
+.skill-group:hover{transform:translateY(-5px);border-color:var(--group-accent,var(--cobalt));box-shadow:var(--shadow-sm)}
+.skill-group--design{--group-accent:#5963ed;--group-glow:rgba(89,99,237,.12)}
+.skill-group--build{--group-accent:#169b83;--group-glow:rgba(22,155,131,.12)}
+.skill-group--growth{--group-accent:#d99a36;--group-glow:rgba(217,154,54,.14)}
+.skill-group-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.skill-group-icon{display:grid;place-items:center;width:46px;height:46px;flex:0 0 46px;border-radius:14px;color:var(--group-accent,var(--cobalt));background:color-mix(in srgb,var(--group-accent,var(--cobalt)) 11%,transparent)}
+.skill-group-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.skill-group-index{color:var(--ink-3);font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em}
+.skill-group-kicker{margin-top:25px;color:var(--group-accent,var(--cobalt));font-family:'IBM Plex Mono',monospace;font-size:.67rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+.skill-group h3{margin-top:9px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.25rem,1.65vw,1.55rem);line-height:1.12;letter-spacing:-.025em}
+.skill-group-description{margin-top:11px;color:var(--ink-2);font-size:.9rem;line-height:1.6;max-width:42ch}
+.skill-group-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:24px}
+.skill-group-tag{display:inline-flex;align-items:center;min-height:29px;padding:6px 10px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--paper-2);color:var(--ink-2);font-family:'IBM Plex Mono',monospace;font-size:.65rem;line-height:1.25;letter-spacing:.015em}
+.skill-group-tag--primary{color:var(--group-accent,var(--cobalt));border-color:color-mix(in srgb,var(--group-accent,var(--cobalt)) 26%,var(--line));background:color-mix(in srgb,var(--group-accent,var(--cobalt)) 8%,var(--paper));font-weight:600}
+.skills-stage.is-armed .skill-group{opacity:0;transform:translateY(26px) scale(.97);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.skills-stage.is-armed.is-open .skill-group{opacity:1;transform:none;transition:opacity .7s var(--ease-soft),transform .8s var(--ease);transition-delay:calc(var(--i,0) * 100ms + 180ms)}
+@media(max-width:900px){.skills-bento--groups{grid-template-columns:repeat(2,minmax(0,1fr))}.skill-group:last-child{grid-column:1/-1}.skill-group{min-height:310px}}
+@media(max-width:600px){.skills-bento--groups{grid-template-columns:1fr;gap:14px;margin-top:28px}.skill-group,.skill-group:last-child{grid-column:auto;min-height:0;padding:23px 21px}.skill-group-tags{padding-top:20px}.skill-group h3{font-size:1.35rem}}
+@media(prefers-reduced-motion:reduce){.skill-group,.skills-stage.is-armed .skill-group,.skills-stage.is-armed.is-open .skill-group{transition:none;transform:none}}
