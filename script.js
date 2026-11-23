@@ -231,29 +231,24 @@
     }
   }
 
-  /* ---------------- hero intro word highlight on scroll ---------------- */
+  /* ---------------- editorial hero: word-by-word scroll highlight ---------------- */
   var heroHL = document.querySelector('.hero-intro');
   if(heroHL){
     var hWords = heroHL.querySelectorAll('.hw');
-    var initLit = 3;
-    function setLit(n){
-      hWords.forEach(function(w, i){ w.classList.toggle('lit', i < n); });
-    }
-    setLit(initLit);
-    if(!reduceMotion){
+    function setLit(n){ hWords.forEach(function(w, i){ w.classList.toggle('lit', i < n); }); }
+    if(reduceMotion){ setLit(hWords.length); }
+    else {
       function tickHL(){
         var rect = heroHL.getBoundingClientRect();
-        var vh = window.innerHeight;
-        var scrolled = vh - rect.top;
-        var total = rect.height + vh;
-        var progress = Math.max(0, Math.min(1, scrolled / total));
-        var n = initLit + Math.round(progress * (hWords.length - initLit) * 1.6);
-        setLit(Math.min(n, hWords.length));
+        var start = window.innerHeight * .78;
+        var travel = Math.max(rect.height * 1.45, window.innerHeight * .9);
+        var progress = Math.max(0, Math.min(1, (start - rect.top) / travel));
+        var count = Math.max(1, Math.ceil(progress * hWords.length));
+        setLit(count);
       }
       document.addEventListener('scroll', tickHL, { passive:true });
+      window.addEventListener('resize', tickHL, { passive:true });
       tickHL();
-    } else {
-      setLit(hWords.length);
     }
   }
 
