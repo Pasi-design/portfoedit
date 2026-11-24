@@ -449,7 +449,7 @@
 
   /* ---------------- optional tiny interface sound effects ---------------- */
   var soundToggle = document.getElementById('soundToggle');
-  var soundOn = false;
+  var soundOn = true;
   var audioContext = null;
   function syncSoundButton(){
     if(!soundToggle) return;
@@ -464,18 +464,20 @@
       if(!AC) return;
       if(!audioContext) audioContext = new AC();
       if(audioContext.state === 'suspended') audioContext.resume();
-      var osc = audioContext.createOscillator();
-      var gain = audioContext.createGain();
       var now = audioContext.currentTime;
       var isClick = kind === 'click';
-      osc.type = isClick ? 'triangle' : 'sine';
-      osc.frequency.setValueAtTime(isClick ? 920 : 620, now);
-      osc.frequency.exponentialRampToValueAtTime(isClick ? 560 : 390, now + (isClick ? .055 : .075));
+      var osc = audioContext.createOscillator();
+      var gain = audioContext.createGain();
+      var filter = audioContext.createBiquadFilter();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(isClick ? 740 : 560, now);
+      osc.frequency.exponentialRampToValueAtTime(isClick ? 520 : 430, now + (isClick ? .085 : .11));
+      filter.type = 'lowpass'; filter.frequency.setValueAtTime(1800, now);
       gain.gain.setValueAtTime(.0001, now);
-      gain.gain.exponentialRampToValueAtTime(isClick ? .055 : .027, now + .008);
-      gain.gain.exponentialRampToValueAtTime(.0001, now + (isClick ? .075 : .095));
-      osc.connect(gain); gain.connect(audioContext.destination);
-      osc.start(now); osc.stop(now + .105);
+      gain.gain.exponentialRampToValueAtTime(isClick ? .038 : .018, now + .012);
+      gain.gain.exponentialRampToValueAtTime(.0001, now + (isClick ? .12 : .14));
+      osc.connect(filter); filter.connect(gain); gain.connect(audioContext.destination);
+      osc.start(now); osc.stop(now + .15);
     }catch(e){}
   }
   syncSoundButton();
@@ -486,7 +488,7 @@
       if(soundOn) playUiTone('click');
     });
   }
-  var soundTargets = '.neon-card,.project-card,.gallery-tile,.feature-card,.btn,.cta-banner a,.float-cta,.skills-trigger,.dot-btn';
+  var soundTargets = '.neon-card,.project-card,.gallery-project,.gallery-project-captions a,.feature-card,.btn,.cta-banner a,.float-cta,.skills-trigger,.dot-btn';
   document.addEventListener('pointerover', function(e){
     if(!soundOn || e.pointerType === 'touch') return;
     var target = e.target.closest(soundTargets);
