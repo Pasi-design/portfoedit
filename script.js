@@ -424,4 +424,138 @@
     });
   }
 
+
+  /* ---------------- day / night appearance ---------------- */
+  var themeToggle = document.getElementById('themeToggle');
+  var rootEl = document.documentElement;
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem('portfolio-theme'); } catch(e) {}
+  if(savedTheme === 'dark' || savedTheme === 'light') rootEl.setAttribute('data-theme', savedTheme);
+  function updateThemeButton(){
+    if(!themeToggle) return;
+    var dark = rootEl.getAttribute('data-theme') === 'dark';
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    themeToggle.setAttribute('title', dark ? 'Switch to day mode' : 'Switch to night mode');
+  }
+  updateThemeButton();
+  if(themeToggle){
+    themeToggle.addEventListener('click', function(){
+      var next = rootEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      rootEl.setAttribute('data-theme', next);
+      try { localStorage.setItem('portfolio-theme', next); } catch(e) {}
+      updateThemeButton();
+    });
+  }
+
+  /* ---------------- optional tiny interface sound effects ---------------- */
+  var soundToggle = document.getElementById('soundToggle');
+  var soundOn = false;
+  var audioContext = null;
+  function syncSoundButton(){
+    if(!soundToggle) return;
+    soundToggle.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+    soundToggle.setAttribute('aria-label', soundOn ? 'Disable interface sounds' : 'Enable interface sounds');
+    soundToggle.setAttribute('title', soundOn ? 'Interface sounds on' : 'Interface sounds off');
+  }
+  function playUiTone(kind){
+    if(!soundOn) return;
+    try{
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return;
+      if(!audioContext) audioContext = new AC();
+      if(audioContext.state === 'suspended') audioContext.resume();
+      var osc = audioContext.createOscillator();
+      var gain = audioContext.createGain();
+      var now = audioContext.currentTime;
+      var isClick = kind === 'click';
+      osc.type = isClick ? 'triangle' : 'sine';
+      osc.frequency.setValueAtTime(isClick ? 920 : 620, now);
+      osc.frequency.exponentialRampToValueAtTime(isClick ? 560 : 390, now + (isClick ? .055 : .075));
+      gain.gain.setValueAtTime(.0001, now);
+      gain.gain.exponentialRampToValueAtTime(isClick ? .055 : .027, now + .008);
+      gain.gain.exponentialRampToValueAtTime(.0001, now + (isClick ? .075 : .095));
+      osc.connect(gain); gain.connect(audioContext.destination);
+      osc.start(now); osc.stop(now + .105);
+    }catch(e){}
+  }
+  syncSoundButton();
+  if(soundToggle){
+    soundToggle.addEventListener('click', function(){
+      soundOn = !soundOn;
+      syncSoundButton();
+      if(soundOn) playUiTone('click');
+    });
+  }
+  var soundTargets = '.neon-card,.project-card,.gallery-tile,.feature-card,.btn,.cta-banner a,.float-cta,.skills-trigger,.dot-btn';
+  document.addEventListener('pointerover', function(e){
+    if(!soundOn || e.pointerType === 'touch') return;
+    var target = e.target.closest(soundTargets);
+    if(target && !target.contains(e.relatedTarget)) playUiTone('hover');
+  }, {passive:true});
+  document.addEventListener('click', function(e){
+    if(!soundOn) return;
+    if(e.target.closest(soundTargets)) playUiTone('click');
+  }, true);
+
+  /* ---------------- user-controlled original ambient music player ---------------- */
+  var player = document.getElementById('ambientPlayer');
+  var musicAudio = document.getElementById('portfolioAudio');
+  if(player && musicAudio){
+    var expandBtn = document.getElementById('musicExpand');
+    var panel = document.getElementById('musicPanel');
+    var closeBtn = document.getElementById('musicClose');
+    var playBtn = document.getElementById('musicPlay');
+    var nextBtn = document.getElementById('musicNext');
+    var volume = document.getElementById('musicVolume');
+    var nameEl = document.getElementById('musicTrackName');
+    var trackBtns = Array.prototype.slice.call(player.querySelectorAll('[data-track]'));
+    var musicTracks = [
+      {name:'Quiet Morning', src:'audio/track-1.mp3'},
+      {name:'Soft Focus', src:'audio/track-2.mp3'},
+      {name:'Slow Sunday', src:'audio/track-3.mp3'}
+    ];
+    var activeTrack = 0;
+    musicAudio.volume = volume ? Number(volume.value) : .35;
+    musicAudio.src = musicTracks[0].src;
+    function openMusic(open){
+      panel.hidden = !open;
+      expandBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(open) expandBtn.setAttribute('aria-label','Close portfolio music player');
+      else expandBtn.setAttribute('aria-label','Open portfolio music player');
+    }
+    function selectTrack(index, autoplay){
+      activeTrack = (index + musicTracks.length) % musicTracks.length;
+      musicAudio.src = musicTracks[activeTrack].src;
+      nameEl.textContent = musicTracks[activeTrack].name;
+      trackBtns.forEach(function(btn,i){
+        btn.classList.toggle('is-active', i === activeTrack);
+        btn.setAttribute('aria-pressed', i === activeTrack ? 'true' : 'false');
+      });
+      if(autoplay) musicAudio.play().then(syncMusic).catch(syncMusic);
+      else syncMusic();
+    }
+    function syncMusic(){
+      var playing = !musicAudio.paused;
+      player.classList.toggle('is-playing', playing);
+      playBtn.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+      playBtn.querySelector('.play-glyph').textContent = playing ? 'Ⅱ' : '▶';
+    }
+    expandBtn.addEventListener('click', function(){ openMusic(panel.hidden); });
+    closeBtn.addEventListener('click', function(){ openMusic(false); });
+    playBtn.addEventListener('click', function(){
+      if(musicAudio.paused) musicAudio.play().then(syncMusic).catch(syncMusic);
+      else { musicAudio.pause(); syncMusic(); }
+    });
+    nextBtn.addEventListener('click', function(){ selectTrack(activeTrack + 1, !musicAudio.paused); });
+    trackBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){ selectTrack(Number(btn.getAttribute('data-track')), !musicAudio.paused); });
+    });
+    if(volume) volume.addEventListener('input', function(){ musicAudio.volume = Number(volume.value); });
+    musicAudio.addEventListener('play', syncMusic);
+    musicAudio.addEventListener('pause', syncMusic);
+    musicAudio.addEventListener('ended', syncMusic);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !panel.hidden) openMusic(false); });
+    syncMusic();
+  }
+
 })();
