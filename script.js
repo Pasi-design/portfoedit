@@ -252,6 +252,41 @@
     }
   }
 
+  /* ---------------- about story: one chapter becomes active per scroll ---------------- */
+  var aboutPanels = document.querySelectorAll("[data-about-panel]");
+  var aboutCurrent = document.querySelector(".about-rail-current");
+  if(aboutPanels.length && "IntersectionObserver" in window){
+    var aboutIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          aboutPanels.forEach(function(panel){ panel.classList.toggle("is-current", panel === entry.target); });
+          var idx = Array.prototype.indexOf.call(aboutPanels, entry.target) + 1;
+          if(aboutCurrent) aboutCurrent.innerHTML = ("0" + idx).slice(-2) + " <i>—</i> 03";
+        }
+      });
+    }, { rootMargin:"-38% 0px -38% 0px", threshold:0 });
+    aboutPanels.forEach(function(panel){ aboutIO.observe(panel); });
+  }
+
+  /* ---------------- career path: animate milestones as they enter ---------------- */
+  var careerJourney = document.querySelector(".career-journey");
+  var careerStops = document.querySelectorAll(".career-stop");
+  if(careerJourney && "IntersectionObserver" in window && !reduceMotion){
+    var careerIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting) entry.target.classList.add("is-visible");
+      });
+    }, { threshold:0.22, rootMargin:"0px 0px -8% 0px" });
+    careerStops.forEach(function(stop){ careerIO.observe(stop); });
+    var careerLineIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ careerJourney.classList.toggle("is-active", entry.isIntersecting); });
+    }, { threshold:0.05 });
+    careerLineIO.observe(careerJourney);
+  } else {
+    careerStops.forEach(function(stop){ stop.classList.add("is-visible"); });
+    if(careerJourney) careerJourney.classList.add("is-active");
+  }
+
   /* ---------------- hutterite password modal ---------------- */
   var hutCard = document.getElementById('hutteriteCard');
   var pwModal = document.getElementById('pwModal');
